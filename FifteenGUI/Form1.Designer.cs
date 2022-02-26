@@ -52,6 +52,7 @@
             this.labelTime = new System.Windows.Forms.Label();
             this.labelScore = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
+            this.cancelMyTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
@@ -59,7 +60,8 @@
             // menuStrip
             // 
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.startMenu});
+            this.startMenu,
+            this.cancelMyTurnToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Padding = new System.Windows.Forms.Padding(8, 2, 0, 2);
@@ -342,6 +344,14 @@
             this.timer.Interval = 1000;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
+            // cancelMyTurnToolStripMenuItem
+            // 
+            this.cancelMyTurnToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cancelMyTurnToolStripMenuItem.Name = "cancelMyTurnToolStripMenuItem";
+            this.cancelMyTurnToolStripMenuItem.Size = new System.Drawing.Size(114, 23);
+            this.cancelMyTurnToolStripMenuItem.Text = "Cancel my turn";
+            this.cancelMyTurnToolStripMenuItem.Click += new System.EventHandler(this.cancelMyTurnToolStripMenuItem_Click);
+            // 
             // FifteenPuzzle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -353,12 +363,14 @@
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "FifteenPuzzle";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "15 puzzle";
             this.Load += new System.EventHandler(this.FifteenPuzzle_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FifteenPuzzle_KeyDown);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
             this.tableLayoutPanel.ResumeLayout(false);
@@ -391,6 +403,7 @@
         private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Label labelScore;
         private System.Windows.Forms.Timer timer;
+        private System.Windows.Forms.ToolStripMenuItem cancelMyTurnToolStripMenuItem;
     }
 }
 

@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FifteenGUI
 {
-    internal class Game
+    // Originator
+    public class Game
     {
         int[,] field;
         int size, x0, y0;
@@ -19,7 +21,7 @@ namespace FifteenGUI
             return 4 * y + x;
         }
 
-        private void TurnPositionToCoordinates(int position, out int x, out int y)
+        public void TurnPositionToCoordinates(int position, out int x, out int y)
         {
             x = Math.Abs(position % 4);
             y = Math.Abs(position / 4);
@@ -45,31 +47,31 @@ namespace FifteenGUI
             else return 0;
         }
 
-        public bool Shift(int position)
+        public bool CanShift(int x, int y)
         {
-            int x, y;
-            TurnPositionToCoordinates(position, out x, out y);
             if (((Math.Abs(x0 - x) < 2) && (y0 - y == 0)) || ((x0 - x == 0) && (Math.Abs(y0 - y) < 2)))
-            {
-                field[x0, y0] = field[x, y];
-                field[x, y] = 0;
-                x0 = x;
-                y0 = y;
                 return true;
-            }
-            return false;
+            else return false;
+        }
+
+        public void Shift(int x, int y)
+        {
+            field[x0, y0] = field[x, y];
+            field[x, y] = 0;
+            x0 = x;
+            y0 = y;
         }
 
         public void ShiftRandom()
         {
             int move = rand.Next(4), x = x0, y = y0;
 
-            if (move == 0) x = (x - 1) % 4;
-            else if (move == 1) x = (x + 1) % 4;
-            else if (move == 2) y = (y - 1) % 4;
-            else y = (y + 1) % 4;
+            if (move == 0) x = Math.Abs(x - 1) % 4;
+            else if (move == 1) x = Math.Abs(x + 1) % 4;
+            else if (move == 2) y = Math.Abs(y - 1) % 4;
+            else y = Math.Abs(y + 1) % 4;
 
-            Shift(TurnCoordinatesToPosition(x, y));
+            if (CanShift(x, y)) Shift(x, y);
         }
 
         public bool CheckWin()
@@ -88,6 +90,47 @@ namespace FifteenGUI
                        )
                         return false;
             return true;
+        }
+
+        public GameMemento SaveState()
+        {
+            return new GameMemento(field, x0, y0);
+        }
+
+        public void RestoreState(GameMemento memento)
+        {
+            this.field = memento.Field;
+            this.x0 = memento.x0;
+            this.y0 = memento.y0;
+        }
+    }
+
+    public class GameMemento
+    {
+        public int[,] Field { get; private set; }
+        public int x0 { get; private set; }
+        public int y0 { get; private set; }
+
+        public GameMemento(int[,] field, int x0, int y0)
+        {
+            Field = new int[4, 4];
+            for (int i = 0; i < 4; i++)
+                for (int j = 0; j < 4; j++)
+                    Field[i, j] = field[i, j];
+
+            this.x0 = x0;
+            this.y0 = y0;
+        }
+    }
+
+    // Caretaker
+    public class GameHistory
+    {
+        public Stack<GameMemento> History { get; private set; }
+
+        public GameHistory()
+        {
+            History = new Stack<GameMemento>();
         }
     }
 }
