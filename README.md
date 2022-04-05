@@ -7,7 +7,7 @@ The goal of the game is to place tiles in numerical order.
 
 ## Requarements 
 
-.NET Framewort 4.8
+.NET Framework 4.8
 
 ## License
 [MIT](https://choosealicense.com/licenses/mit/)
