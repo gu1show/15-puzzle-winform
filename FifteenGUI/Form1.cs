@@ -30,7 +30,7 @@ namespace FifteenGUI
             }
         }
 
-        private void startMenu_Click(object sender, EventArgs e)
+        private void StartMenu_Click(object sender, EventArgs e)
         {
             StartNewGame();
         }
@@ -43,17 +43,17 @@ namespace FifteenGUI
         private void StartNewGame()
         {
             cancelMyTurnToolStripMenuItem.Visible = false;
-            timer.Stop();
+            gameTimer.Stop();
             game.Start();
+            gameTimer.ResetLabel();
             for (int i = 0; i < 100; i++) game.ShiftRandom();
             RefreshButtonField();
-            labelTime.Text = "0";
             labelScore.Text = "0";
         }
 
         private void button15_Click(object sender, EventArgs e)
         {
-            timer.Start();
+            gameTimer.Start();
             int position = Convert.ToInt32(((Button)sender).Tag);
 
             int x, y;
@@ -69,15 +69,11 @@ namespace FifteenGUI
 
             if (game.CheckWin())
             {
-                timer.Stop();
-                MessageBox.Show("You win the game!", "Information",
+                gameTimer.Stop();
+                MessageBox.Show($"You win the game!\nTime: {gameTimer.ReturnTime()}", 
+                                "Information",
                                 MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private void timer_Tick(object sender, EventArgs e)
-        {
-            labelTime.Text = $"{Convert.ToInt32(labelTime.Text) + 1}";
         }
 
         private void cancelMyTurnToolStripMenuItem_Click(object sender, EventArgs e)

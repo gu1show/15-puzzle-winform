@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FifteenPuzzle));
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.startMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.cancelMyTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tableLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.button15 = new System.Windows.Forms.Button();
             this.button14 = new System.Windows.Forms.Button();
@@ -49,10 +49,8 @@
             this.button2 = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.button0 = new System.Windows.Forms.Button();
-            this.labelTime = new System.Windows.Forms.Label();
             this.labelScore = new System.Windows.Forms.Label();
-            this.timer = new System.Windows.Forms.Timer(this.components);
-            this.cancelMyTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.gameTimer = new ComponentLibrary.GameTimer();
             this.menuStrip.SuspendLayout();
             this.tableLayoutPanel.SuspendLayout();
             this.SuspendLayout();
@@ -75,7 +73,15 @@
             this.startMenu.Name = "startMenu";
             this.startMenu.Size = new System.Drawing.Size(117, 23);
             this.startMenu.Text = "Start new game";
-            this.startMenu.Click += new System.EventHandler(this.startMenu_Click);
+            this.startMenu.Click += new System.EventHandler(this.StartMenu_Click);
+            // 
+            // cancelMyTurnToolStripMenuItem
+            // 
+            this.cancelMyTurnToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
+            this.cancelMyTurnToolStripMenuItem.Name = "cancelMyTurnToolStripMenuItem";
+            this.cancelMyTurnToolStripMenuItem.Size = new System.Drawing.Size(114, 23);
+            this.cancelMyTurnToolStripMenuItem.Text = "Cancel my turn";
+            this.cancelMyTurnToolStripMenuItem.Click += new System.EventHandler(this.cancelMyTurnToolStripMenuItem_Click);
             // 
             // tableLayoutPanel
             // 
@@ -319,15 +325,6 @@
             this.button0.UseVisualStyleBackColor = true;
             this.button0.Click += new System.EventHandler(this.button15_Click);
             // 
-            // labelTime
-            // 
-            this.labelTime.AutoSize = true;
-            this.labelTime.Location = new System.Drawing.Point(392, 7);
-            this.labelTime.Name = "labelTime";
-            this.labelTime.Size = new System.Drawing.Size(0, 17);
-            this.labelTime.TabIndex = 2;
-            this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // labelScore
             // 
             this.labelScore.AutoSize = true;
@@ -339,26 +336,21 @@
             this.labelScore.Text = "0";
             this.labelScore.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // timer
+            // gameTimer
             // 
-            this.timer.Interval = 1000;
-            this.timer.Tick += new System.EventHandler(this.timer_Tick);
-            // 
-            // cancelMyTurnToolStripMenuItem
-            // 
-            this.cancelMyTurnToolStripMenuItem.Font = new System.Drawing.Font("Segoe UI", 10F);
-            this.cancelMyTurnToolStripMenuItem.Name = "cancelMyTurnToolStripMenuItem";
-            this.cancelMyTurnToolStripMenuItem.Size = new System.Drawing.Size(114, 23);
-            this.cancelMyTurnToolStripMenuItem.Text = "Cancel my turn";
-            this.cancelMyTurnToolStripMenuItem.Click += new System.EventHandler(this.cancelMyTurnToolStripMenuItem_Click);
+            this.gameTimer.Location = new System.Drawing.Point(359, 7);
+            this.gameTimer.Margin = new System.Windows.Forms.Padding(4);
+            this.gameTimer.Name = "gameTimer";
+            this.gameTimer.Size = new System.Drawing.Size(70, 17);
+            this.gameTimer.TabIndex = 4;
             // 
             // FifteenPuzzle
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(784, 561);
+            this.Controls.Add(this.gameTimer);
             this.Controls.Add(this.labelScore);
-            this.Controls.Add(this.labelTime);
             this.Controls.Add(this.tableLayoutPanel);
             this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
@@ -400,10 +392,9 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Label labelTime;
         private System.Windows.Forms.Label labelScore;
-        private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripMenuItem cancelMyTurnToolStripMenuItem;
+        private ComponentLibrary.GameTimer gameTimer;
     }
 }
 
